@@ -4,6 +4,8 @@ import {
   loginUser,
   logoutCurrentUser,
   getAllUsers,
+  getCurrentUserProfile,
+  updateCurrentUserProfile,
 } from "../controllers/userController.js";
 
 import { authenticate, authorizeAdmin } from "../middleware/authMiddleware.js";
@@ -16,5 +18,9 @@ router
   .get(authenticate, authorizeAdmin, getAllUsers);
 router.post("/auth", loginUser);
 router.post("/logout", logoutCurrentUser);
+router
+  .route("/profile")
+  .get(authenticate, getCurrentUserProfile)
+  .put(authenticate, updateCurrentUserProfile);
 
 export default router;
